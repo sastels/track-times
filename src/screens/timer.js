@@ -7,14 +7,6 @@ import firebase, { signIn, uploadData } from "../utils/firebase";
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true });
 
-const root = css`
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-`;
-const headerStyle = css`
-  margin-top: 50px;
-  margin-bottom: 50px;
-`;
 const buttonStyle = css`
   font-family: Arial, Helvetica, sans-serif;
   height: 70px;
@@ -82,7 +74,6 @@ class TimerScreen extends Component {
     endTime: undefined,
     runningTime: undefined,
     timer: undefined,
-    id: 'test'
   };
 
   componentDidMount() {
@@ -166,10 +157,9 @@ class TimerScreen extends Component {
   );
 
   render() {
-    const id = this.state.id;
+    const id = this.props.id;
     return (
-      <div className={root}>
-        <h1 className={headerStyle}>{`Timer: ${id}`} </h1>
+      <div>
         <div className={instructionStyle}>{instructions[this.state.step]}</div>
         <Timer time={this.state.runningTime} />
 

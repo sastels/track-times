@@ -8,11 +8,6 @@ import WaitChart from "../components/WaitChart";
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true });
 
-const root = css`
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-`;
-
 const buttonStyle = css`
   font-family: Arial, Helvetica, sans-serif;
   height: 70px;
@@ -39,13 +34,12 @@ const linkStyle = css`
 
 class DataScreen extends Component {
   state = {
-    id: 'test',
     data: [],
     smoothed: []
   };
 
   componentDidMount() {
-    signIn(() => loadData(db, this.state.id, this.setState.bind(this)));
+    signIn(() => loadData(db, this.props.id, this.setState.bind(this)));
   }
 
   render() {
@@ -61,7 +55,7 @@ class DataScreen extends Component {
     });
 
     return (
-      <div className={root}>
+      <div>
         <WaitChart data={this.state.data} />
         <WaitTable data={tableData.slice(0, 5)} />
         <button className={cx(buttonStyle, linkStyle)} onClick={() => this.props.switchScreen('timer')}>
