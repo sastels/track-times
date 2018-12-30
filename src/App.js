@@ -1,18 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import TimerScreen from './screens/timer'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Track Times!
-          </p>
-        </header>
-      </div>
+      <TimerScreen/>
     );
   }
 }
