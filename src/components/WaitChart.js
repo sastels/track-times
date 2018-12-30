@@ -1,4 +1,3 @@
-import {Component} from "react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import React from "react";
@@ -111,18 +110,13 @@ const chartConfig = data => {
   };
 };
 
-
-class WaitChart extends Component {
-
-  render() {
-    const options = chartConfig(
-      this.props.data.map(timing => [timing.tod, timing.wait / 60.0])
-    );
-
-    return (
-        <HighchartsReact highcharts={Highcharts} options={options} />
-    );
-  }
-}
+const WaitChart = props => (
+  <HighchartsReact
+    highcharts={Highcharts}
+    options={
+      chartConfig(props.data.map(timing => [timing.tod, timing.wait / 60.0]))
+    }
+  />
+)
 
 export default WaitChart
