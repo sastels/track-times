@@ -5,6 +5,8 @@
   "dependencies": {
     "emotion": "^10.0.5",
     "firebase": "^5.7.2",
+    "highcharts": "^7.0.1",
+    "highcharts-react-official": "^2.0.0",
     "moment": "^2.23.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
