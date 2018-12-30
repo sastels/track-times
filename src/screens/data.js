@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { css } from "emotion";
+import { cx, css } from "emotion";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import firebase, { signIn, loadData } from "../utils/firebase";
@@ -15,6 +15,36 @@ db.settings({ timestampsInSnapshots: true });
 const root = css`
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
+`;
+
+const buttonStyle = css`
+  font-family: Arial, Helvetica, sans-serif;
+  height: 70px;
+  color: white;
+  font-size: 20px;
+  width: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: 0 solid #00aa66;
+  background-color: green;
+`;
+const redBackground = css`
+  background-color: red;
+`;
+const yellowBackground = css`
+  background-color: #ffd700;
+  color: black;
+`;
+const linkStyle = css`
+  margin-top: 100px;
+  font-size: 15px;
+  height: 60px;
+  width: 200px;
+  background-color: blue;
 `;
 
 class DataScreen extends Component {
@@ -153,6 +183,10 @@ class DataScreen extends Component {
       <div className={root}>
         <HighchartsReact highcharts={Highcharts} options={options} />
         <WaitTable data={tableData.slice(0, 5)} />
+
+        <button className={cx(buttonStyle, linkStyle)} onClick={() => this.props.switchScreen('timer')}>
+          Timer
+        </button>
       </div>
     );
   }

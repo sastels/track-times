@@ -14,9 +14,9 @@ class App extends Component {
   render() {
     switch (this.state.screen) {
       case 'timer':
-        return <TimerScreen  switchScreen={this.switchScreen} />
+        return <TimerScreen switchScreen={this.switchScreen} />
       case 'data':
-        return <DataScreen />
+        return <DataScreen switchScreen={this.switchScreen} />
       default:
         console.log(`ERROR: unknown screen: ${this.state.screen}`)
     }
