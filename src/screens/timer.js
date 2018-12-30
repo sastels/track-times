@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { css, cx } from "emotion";
 import moment from "moment";
 import Timer from "../components/timer";
-// import Link from "next/link";
 import firebase, { signIn, uploadData } from "../utils/firebase";
 
 const db = firebase.firestore();
@@ -37,6 +36,10 @@ const redBackground = css`
 const yellowBackground = css`
   background-color: #ffd700;
   color: black;
+`;
+const dataButton = css`
+  background-color: blue;
+  margin-top: 100px;
 `;
 const instructionStyle = css`
   font-family: Arial, Helvetica, sans-serif;
@@ -169,7 +172,9 @@ class TimerScreen extends Component {
 
         {this.buttonBar(this.state.step, id)}
 
-        {/*<Link href={`/data?id=${id}`}>Data</Link>*/}
+        <button className={cx(buttonStyle, dataButton)} onClick={() => this.props.switchScreen('data')}>
+          Data Charts
+        </button>
       </div>
     );
   }

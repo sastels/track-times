@@ -37,17 +37,6 @@ export const signIn = onSignIn => {
   });
 };
 
-// export const submitData = data => {
-//   fetch("/uploadData", {
-//     body: JSON.stringify(data),
-//     cache: "no-cache",
-//     headers: {
-//       "content-type": "application/json"
-//     },
-//     method: "POST"
-//   }).catch(err => console.log(err));
-// };
-
 export const uploadData = function(db, collectionID, { wait, when }) {
   const collection = wait < 10 ? "test" : collectionID;
   db.collection(collection)
