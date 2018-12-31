@@ -7,14 +7,6 @@ import firebase, { signIn, uploadData } from "../utils/firebase";
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true });
 
-const root = css`
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-`;
-const headerStyle = css`
-  margin-top: 50px;
-  margin-bottom: 50px;
-`;
 const buttonStyle = css`
   font-family: Arial, Helvetica, sans-serif;
   height: 70px;
@@ -37,9 +29,12 @@ const yellowBackground = css`
   background-color: #ffd700;
   color: black;
 `;
-const dataButton = css`
-  background-color: blue;
+const linkStyle = css`
   margin-top: 100px;
+  font-size: 15px;
+  height: 60px;
+  width: 200px;
+  background-color: blue;
 `;
 const instructionStyle = css`
   font-family: Arial, Helvetica, sans-serif;
@@ -79,7 +74,6 @@ class TimerScreen extends Component {
     endTime: undefined,
     runningTime: undefined,
     timer: undefined,
-    id: 'test'
   };
 
   componentDidMount() {
@@ -163,16 +157,15 @@ class TimerScreen extends Component {
   );
 
   render() {
-    const id = this.state.id;
+    const id = this.props.id;
     return (
-      <div className={root}>
-        <h1 className={headerStyle}>{`Timer: ${id}`} </h1>
+      <div>
         <div className={instructionStyle}>{instructions[this.state.step]}</div>
         <Timer time={this.state.runningTime} />
 
         {this.buttonBar(this.state.step, id)}
 
-        <button className={cx(buttonStyle, dataButton)} onClick={() => this.props.switchScreen('data')}>
+        <button className={cx(buttonStyle, linkStyle)} onClick={() => this.props.switchScreen('data')}>
           Data Charts
         </button>
       </div>

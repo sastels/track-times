@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import TimerScreen from './screens/timer'
 import DataScreen from './screens/data'
+import {css} from "emotion";
+
+const root = css`
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+`;
+const headerStyle = css`
+  margin-top: 50px;
+  margin-bottom: 50px;
+`;
 
 class App extends Component {
   state = {
+    id: "cds",
     screen: "timer"
   }
 
@@ -12,14 +23,23 @@ class App extends Component {
   }
 
   render() {
+    let screenToDisplay = undefined
     switch (this.state.screen) {
       case 'timer':
-        return <TimerScreen  switchScreen={this.switchScreen} />
+        screenToDisplay = <TimerScreen id={this.state.id} switchScreen={this.switchScreen} />;
+        break;
       case 'data':
-        return <DataScreen />
+        screenToDisplay = <DataScreen id={this.state.id} switchScreen={this.switchScreen} />;
+        break;
       default:
         console.log(`ERROR: unknown screen: ${this.state.screen}`)
     }
+    return (
+      <div className={root}>
+        <h1 className={headerStyle}>{`Timer: ${this.state.id}`} </h1>
+      {screenToDisplay}
+      </div>
+    )
   }
 }
 
