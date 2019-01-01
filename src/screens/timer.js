@@ -148,9 +148,7 @@ class TimerScreen extends Component {
         </button>
       ) : (
         <div className={doneStyle}>
-          {this.state.runningTime.asSeconds() < 10
-            ? "Data submitted to test collection"
-            : buttonText[STEP_FINISHED]}
+          {buttonText[STEP_FINISHED]}
         </div>
       )}
     </React.Fragment>
