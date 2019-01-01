@@ -14,8 +14,15 @@ const headerStyle = css`
 
 class App extends Component {
   state = {
-    id: "cds",
+    id: "test",
     screen: "timer"
+  }
+
+  componentDidMount() {
+    const id = window.location.pathname.split('/').slice(-1)[0]
+    if (id) {
+      this.setState({id})
+    }
   }
 
   switchScreen = screen => {
