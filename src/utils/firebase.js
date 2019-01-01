@@ -19,15 +19,13 @@ export const signIn = onSignIn => {
     .auth()
     .signInAnonymously()
     .catch(function(error) {
-      // Handle Errors here.
       console.log(`ERROR ${error.code}: ${error.message}`);
     });
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-      // User is signed in.
-      // var isAnonymous = user.isAnonymous;
-      console.log(`signed in: ${user.uid}`);
+      var isAnonymous = user.isAnonymous;
+      console.log(`signed in: ${user.uid}  isAnonymous: ${isAnonymous}`);
       if (onSignIn) {
         onSignIn();
       }
@@ -38,8 +36,7 @@ export const signIn = onSignIn => {
 };
 
 export const uploadData = function(db, collectionID, { wait, when }) {
-  const collection = wait < 10 ? "test" : collectionID;
-  db.collection(collection)
+  db.collection(collectionID)
     .doc(when)
     .set({ wait, when });
 };
