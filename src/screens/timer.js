@@ -118,19 +118,30 @@ class TimerScreen extends Component {
     }
   };
 
-  restartTimer = () => {
+  continueTimer = () => {
     this.setState({
       step: STEP_TRANSIT,
       timer: setInterval(this.handleTimer)
     });
   };
 
+  restartTimer = () => {
+    clearInterval(this.state.timer);
+    this.setState({
+      step: STEP_STARTUP,
+      startTime: undefined,
+      endTime: undefined,
+      runningTime: undefined,
+      timer: undefined,
+    });
+  }
+
   buttonBar = (step, id) => (
     <React.Fragment>
       {step === STEP_DONE_TRIP ? (
         <button
           className={cx(buttonStyle, yellowBackground)}
-          onClick={this.restartTimer}
+          onClick={this.continueTimer}
         >
           Continue timer
         </button>
@@ -151,6 +162,14 @@ class TimerScreen extends Component {
           {buttonText[STEP_FINISHED]}
         </div>
       )}
+      {step !== STEP_STARTUP ? (
+        <button
+          className={cx(buttonStyle, yellowBackground)}
+          onClick={this.restartTimer}
+        >
+          Restart
+        </button>
+      ) : null}
     </React.Fragment>
   );
 
