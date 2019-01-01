@@ -6,7 +6,7 @@
       "src": "smiley_192x192.png",
       "type": "image/png",
       "sizes": "192x192"
-    },
+    }
   ],
   "display": "standalone",
   "theme_color": "#000000",
