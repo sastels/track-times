@@ -13,6 +13,7 @@
     "react-scripts": "2.1.2"
   },
   "scripts": {
+    "analyze": "yarn build --stats && webpack-bundle-analyzer build/bundle-stats.json",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -28,6 +29,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "firebase-tools": "^6.2.2"
+    "firebase-tools": "^6.2.2",
+    "webpack-bundle-analyzer": "^3.0.3"
   }
 }
