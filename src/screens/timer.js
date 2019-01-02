@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { css, cx } from "emotion";
 import moment from "moment";
 import Timer from "../components/timer";
-import firebase, { signIn, uploadData } from "../utils/firebase";
+import { signIn, uploadData } from "../utils/firebase";
+import firebase from "firebase/app";
+import "firebase/firestore"
 
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true });

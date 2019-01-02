@@ -1,4 +1,6 @@
-import * as firebase from "firebase";
+import firebase from "firebase/app";
+import "firebase/firestore"
+import "firebase/auth"
 import moment from "moment";
 
 const config = {
@@ -10,9 +12,7 @@ const config = {
   messagingSenderId: "501083985199"
 };
 
-export default (!firebase.apps.length
-  ? firebase.initializeApp(config)
-  : firebase.app());
+!firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
 
 export const signIn = onSignIn => {
   firebase

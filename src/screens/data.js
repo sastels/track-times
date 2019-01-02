@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { cx, css } from "emotion";
-import firebase, { signIn, loadData } from "../utils/firebase";
+import { signIn, loadData } from "../utils/firebase";
+import firebase from "firebase/app";
+import "firebase/firestore";
 import WaitTable from "../components/WaitTable";
 import WaitChart from "../components/WaitChart";
 
