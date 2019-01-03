@@ -8,6 +8,7 @@
     "firebase": "^5.7.2",
     "highcharts": "^7.0.1",
     "highcharts-react-official": "^2.0.0",
+    "localforage": "^1.7.3",
     "moment": "^2.23.0",
     "react": "^16.7.0",
     "react-app-rewired": "2.0.2-next.0",
@@ -35,4 +36,3 @@
     "webpack-bundle-analyzer": "^3.0.3"
   }
 }
-
