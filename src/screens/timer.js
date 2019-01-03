@@ -89,16 +89,16 @@ class TimerScreen extends Component {
         if (value === STEP_TRANSIT) {
           this.setState({timer: setInterval(this.handleTimer)})
         }
-      }
-    })
-    localForage.getItem("startTime").then(value => {
-      if (value) {
-        this.setState({startTime: new Date(value)})
-      }
-    })
-    localForage.getItem("runningTime").then(value => {
-      if (value) {
-        this.setState({runningTime: new moment.duration(value, "seconds")})
+        localForage.getItem("startTime").then(value => {
+          if (value) {
+            this.setState({startTime: new Date(value)})
+          }
+        })
+        localForage.getItem("runningTime").then(value => {
+          if (value) {
+            this.setState({runningTime: new moment.duration(value, "seconds")})
+          }
+        })
       }
     })
   }
