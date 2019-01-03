@@ -17,7 +17,7 @@
   "scripts": {
     "analyze": "yarn build --stats && webpack-bundle-analyzer build/bundle-stats.json",
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject"
   },
