@@ -207,7 +207,7 @@ class TimerScreen extends Component {
   render() {
     const id = this.props.id;
     let host = window.location.protocol + "//" + window.location.hostname
-    if (!["90", "443"].includes(window.location.port)) {
+    if (window.location.port && !["90", "443"].includes(window.location.port)) {
       host  = host + ":" + window.location.port
     }
     return (
