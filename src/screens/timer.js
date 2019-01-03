@@ -43,6 +43,7 @@ const instructionStyle = css`
   font-family: Arial, Helvetica, sans-serif;
   color: black;
   font-size: 15px;
+  margin: 50px;
   margin-bottom: 20px;
 `;
 const doneStyle = css`
@@ -59,15 +60,15 @@ const STEP_FINISHED = "finished";
 const buttonText = {
   startup: "Start Timer",
   transit: "Done!",
-  tripDone: "Submit time",
+  tripDone: "Submit Time",
   finished: "Thanks!"
 };
 
 const instructions = {
-  startup: "Press the button when you start waiting.",
-  transit: "Press the button when you're done.",
-  tripDone: "Continue the timer or submit your time.",
-  finished: ""
+  startup: 'Press the "Start" button when you start waiting for the elevator.',
+  transit: 'Press the "Done" button when you exit the elevator on your floor.',
+  tripDone: 'Continue the timer or submit your time.',
+  finished: ''
 };
 
 class TimerScreen extends Component {
@@ -205,6 +206,10 @@ class TimerScreen extends Component {
 
   render() {
     const id = this.props.id;
+    let host = window.location.protocol + "//" + window.location.hostname
+    if (!["90", "443"].includes(window.location.port)) {
+      host  = host + ":" + window.location.port
+    }
     return (
       <div>
         <div className={instructionStyle}>{instructions[this.state.step]}</div>
@@ -215,6 +220,12 @@ class TimerScreen extends Component {
         <button className={cx(buttonStyle, linkStyle)} onClick={() => this.props.switchScreen('data')}>
           Data Charts
         </button>
+
+        <div className={instructionStyle}>
+          To make your data set, in a browser add your own pathname to the URL
+        <br/>
+          (for example, {host + "/myData"})
+        </div>
       </div>
     );
   }
