@@ -5,6 +5,7 @@ import Timer from "../components/timer";
 import { signIn, uploadData } from "../utils/firebase";
 import firebase from "firebase/app";
 import "firebase/firestore"
+import localForage from "localforage"
 
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true });
@@ -73,13 +74,32 @@ class TimerScreen extends Component {
   state = {
     step: STEP_STARTUP,
     startTime: undefined,
-    endTime: undefined,
     runningTime: undefined,
     timer: undefined,
   };
 
   componentDidMount() {
     signIn();
+    localForage.getItem("step").then(value => {
+      if (value) {
+        this.setState({
+          step: value,
+        })
+        if (value === STEP_TRANSIT) {
+          this.setState({timer: setInterval(this.handleTimer)})
+        }
+      }
+    })
+    localForage.getItem("startTime").then(value => {
+      if (value) {
+        this.setState({startTime: new Date(value)})
+      }
+    })
+    localForage.getItem("runningTime").then(value => {
+      if (value) {
+        this.setState({runningTime: new moment.duration(value, "seconds")})
+      }
+    })
   }
 
   handleTimer = () => {
@@ -87,29 +107,34 @@ class TimerScreen extends Component {
       moment(new Date()).diff(this.state.startTime)
     );
     this.setState({ runningTime: duration });
+    localForage.setItem("runningTime", duration.asSeconds())
   };
 
   nextStep = id => {
     switch (this.state.step) {
       case STEP_STARTUP:
+        const newStartTime = new Date()
+        localForage.setItem("step", STEP_TRANSIT)
+        localForage.setItem("startTime", newStartTime.toUTCString())
         this.setState({
           step: STEP_TRANSIT,
-          startTime: new Date(),
+          startTime: newStartTime,
           timer: setInterval(this.handleTimer)
         });
         break;
       case STEP_TRANSIT:
+        localForage.setItem("step", STEP_DONE_TRIP)
         clearInterval(this.state.timer);
         this.setState({
           step: STEP_DONE_TRIP,
-          endTime: new Date(),
           timer: undefined
         });
         break;
       case STEP_DONE_TRIP:
+        localForage.setItem("step", STEP_FINISHED)
         uploadData(db, id, {
           wait: this.state.runningTime.asSeconds(),
-          when: moment(this.state.endTime).format("YYYY-MM-DD HH:mm:ss [EDT]ZZ")
+          when: moment(this.state.startTime).format("YYYY-MM-DD HH:mm:ss [EDT]ZZ")
         });
         this.setState({
           step: STEP_FINISHED
@@ -121,6 +146,7 @@ class TimerScreen extends Component {
   };
 
   continueTimer = () => {
+    localForage.setItem("step", STEP_TRANSIT)
     this.setState({
       step: STEP_TRANSIT,
       timer: setInterval(this.handleTimer)
@@ -128,11 +154,13 @@ class TimerScreen extends Component {
   };
 
   restartTimer = () => {
-    clearInterval(this.state.timer);
+    if (this.state.timer) {
+      clearInterval(this.state.timer);
+    }
+    localForage.clear()
     this.setState({
       step: STEP_STARTUP,
       startTime: undefined,
-      endTime: undefined,
       runningTime: undefined,
       timer: undefined,
     });
