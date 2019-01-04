@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import { cx, css } from "emotion";
 import { signIn, loadData } from "../utils/firebase";
-import firebase from "firebase/app";
-import "firebase/firestore";
 import WaitTable from "../components/WaitTable";
 import WaitChart from "../components/WaitChart";
 
-// Initialize Firebase
-const db = firebase.firestore();
-db.settings({ timestampsInSnapshots: true });
 
 const buttonStyle = css`
   font-family: Arial, Helvetica, sans-serif;
@@ -41,7 +36,7 @@ class DataScreen extends Component {
   };
 
   componentDidMount() {
-    signIn(() => loadData(db, this.props.id, this.setState.bind(this)));
+    signIn(() => loadData(this.props.id, this.setState.bind(this)));
   }
 
   render() {
