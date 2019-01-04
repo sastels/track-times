@@ -12,7 +12,19 @@ const config = {
   messagingSenderId: "501083985199"
 };
 
-!firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
+firebase.initializeApp(config)
+
+// !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
+firebase.firestore().settings({ timestampsInSnapshots: true });
+
+// firebase.firestore().enablePersistence()
+//   .catch(function(err) {
+//     if (err.code === 'failed-precondition') {
+//       console.log("Multiple tabs open, persistence can only be enabled in one tab at a a time.")
+//     } else if (err.code === 'unimplemented') {
+//       console.log("The current browser does not support all of the features required to enable persistence")
+//     }
+//   });
 
 export const signIn = onSignIn => {
   firebase
@@ -35,15 +47,16 @@ export const signIn = onSignIn => {
   });
 };
 
-export const uploadData = function(db, collectionID, { wait, when }) {
-  db.collection(collectionID)
-    .doc(when)
-    .set({ wait, when });
+export const uploadData = function(collectionID, { wait, when }) {
+  firebase.firestore()
+          .collection(collectionID)
+          .doc(when)
+          .set({ wait, when });
 };
 
-export const loadData = (db, collection, setState) => {
+export const loadData = (collection, setState) => {
   let data = [];
-  var cdsData = db.collection(collection);
+  var cdsData = firebase.firestore().collection(collection);
   cdsData
     .get()
     .then(snapshot => {

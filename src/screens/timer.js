@@ -3,12 +3,7 @@ import { css, cx } from "emotion";
 import moment from "moment";
 import Timer from "../components/timer";
 import { signIn, uploadData } from "../utils/firebase";
-import firebase from "firebase/app";
-import "firebase/firestore"
 import localForage from "localforage"
-
-const db = firebase.firestore();
-db.settings({ timestampsInSnapshots: true });
 
 const buttonStyle = css`
   font-family: Arial, Helvetica, sans-serif;
@@ -133,7 +128,7 @@ class TimerScreen extends Component {
         break;
       case STEP_DONE_TRIP:
         localForage.setItem("step", STEP_FINISHED)
-        uploadData(db, id, {
+        uploadData(id, {
           wait: this.state.runningTime.asSeconds(),
           when: moment(this.state.startTime).format("YYYY-MM-DD HH:mm:ss [EDT]ZZ")
         });
