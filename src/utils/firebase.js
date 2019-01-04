@@ -13,18 +13,16 @@ const config = {
 };
 
 firebase.initializeApp(config)
-
-// !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
 firebase.firestore().settings({ timestampsInSnapshots: true });
 
-// firebase.firestore().enablePersistence()
-//   .catch(function(err) {
-//     if (err.code === 'failed-precondition') {
-//       console.log("Multiple tabs open, persistence can only be enabled in one tab at a a time.")
-//     } else if (err.code === 'unimplemented') {
-//       console.log("The current browser does not support all of the features required to enable persistence")
-//     }
-//   });
+firebase.firestore().enablePersistence()
+  .catch(function(err) {
+    if (err.code === 'failed-precondition') {
+      console.log("Multiple tabs open, persistence can only be enabled in one tab at a a time.")
+    } else if (err.code === 'unimplemented') {
+      console.log("The current browser does not support all of the features required to enable persistence")
+    }
+  });
 
 export const signIn = onSignIn => {
   firebase
