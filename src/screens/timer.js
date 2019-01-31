@@ -217,7 +217,7 @@ class TimerScreen extends Component {
         </button>
 
         <div className={instructionStyle}>
-          To make your data set, in a browser add your own pathname to the URL
+          To make your own data set, in a browser add your own pathname to the URL
         <br/>
           (for example, {host + "/myData"})
         </div>
